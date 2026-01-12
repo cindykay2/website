@@ -3,199 +3,596 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Home</title>
+  <title>L&F Consultants | Home</title>
+
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
   <style>
-    body, html {
-      height: 100%;
-      margin: 0;
-      font-family: Arial, sans-serif;
-      color: white;
+    :root{
+      --bg:#0b0b0c;
+      --panel:#111114;
+      --text:#f5f5f5;
+      --muted:rgba(255,255,255,.72);
+      --border:rgba(255,255,255,.12);
+      --shadow: 0 30px 70px rgba(0,0,0,.55);
     }
 
-    .navbar {
-      background-color: black;   background-color: rgba(0, 0, 0, 0.8);
+    html{ scroll-behavior:smooth; }
+    body{
+      background: var(--bg);
+      color: var(--text);
+      font-family:'Cambria, Cochin, Georgia, Times, 'Times New Roman', serif';
+      overflow-x:hidden;
     }
 
-    .navbar-nav .nav-link {
-      color: white !important;
-      margin-left: 15px;
+    /* ---- NAV ---- */
+    .nav-glass{
+      background: rgba(0,0,0,.25);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      transition: background .25s ease, border-color .25s ease;
     }
-
-    .bg-image {
-      background-image: url('Gallery of Marubá Residence _ Padovani Arquitetos  - 22.jpeg');
-      height: 100vh;
-      background-size: cover;
-      background-position: center;
+    .nav-solid{
+      background: rgba(0,0,0,.88) !important;
+      border-bottom: 1px solid rgba(255,255,255,.12) !important;
+    }
+    .navbar .nav-link{
+      color: rgba(255,255,255,.86) !important;
+      letter-spacing: .06em;
+      font-size: .88rem;
+      text-transform: uppercase;
       position: relative;
+      padding: .75rem .85rem;
+    }
+    .navbar .nav-link:hover{ color: #fff !important; }
+    .navbar .nav-link::after{
+      content:"";
+      position:absolute;
+      left:.85rem;
+      right:.85rem;
+      bottom:.45rem;
+      height:1px;
+      background: rgba(255,255,255,.65);
+      transform: scaleX(0);
+      transform-origin:left;
+      transition: transform .22s ease;
+    }
+    .navbar .nav-link:hover::after{ transform: scaleX(1); }
+
+    .navbar-toggler{ border-color: rgba(255,255,255,.35); }
+    .navbar-toggler:focus{ box-shadow: 0 0 0 .2rem rgba(255,255,255,.15); }
+    .navbar-toggler-icon{
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
     }
 
-    .overlay-text {
-      position: absolute;
-      bottom: 40px;
-      left: 30px;
-      font-size: 1.5rem;
-      font-weight: bold;
-      background-color: rgba(0, 0, 0, 0.6);
-      padding: 20px;
-      border-radius: 5px;
+    /* ---- HERO ---- */
+    .hero{
+      min-height: 100vh;
+      display:flex;
+      align-items:end;
+      position: relative;
+      padding-top: 6.2rem; /* space for fixed nav */
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.12) 0%, rgba(0,0,0,.62) 65%, rgba(0,0,0,.92) 100%),
+        url('images/BANK.jpg') center/cover no-repeat;
+    }
+    .hero .hero-inner{
+      padding: 4rem 0 4.5rem;
+    }
+    .eyebrow{
+      letter-spacing:.22em;
+      text-transform: uppercase;
+      font-size:.78rem;
+      color: var(--muted);
+    }
+    .hero h1{
+      font-weight: 700;
+      line-height: 1.02;
+      letter-spacing: -.02em;
+      font-size: clamp(2.2rem, 4.2vw, 4.2rem);
+      margin: .6rem 0 1rem;
+      text-shadow: 0 8px 25px rgba(0,0,0,.55);
+    }
+    .hero p{
+      max-width: 60ch;
+      color: rgba(255,255,255,.82);
+      font-size: clamp(1rem, 1.25vw, 1.15rem);
+      margin-bottom: 1.7rem;
+    }
+    .btn-ghost{
+      border: 1px solid rgba(255,255,255,.35);
+      color: #fff;
+      border-radius: 999px;
+      padding: .75rem 1.15rem;
+    }
+    .btn-ghost:hover{
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.6);
+      color:#fff;
+    }
+    .scroll-hint{
+      position:absolute;
+      left:50%;
+      transform:translateX(-50%);
+      bottom: 1.2rem;
+      opacity:.85;
+      color: rgba(255,255,255,.75);
+      font-size:.9rem;
+      display:flex;
+      gap:.5rem;
+      align-items:center;
+      user-select:none;
+    }
+    .scroll-hint i{
+      display:inline-block;
+      animation: bounce 1.5s infinite;
+    }
+    @keyframes bounce{
+      0%, 100%{ transform: translateY(0); }
+      50%{ transform: translateY(6px); }
     }
 
-    .footer a {
-      color: #ccc;
-      text-decoration: none;
+    /* ---- SECTION WRAPPER ---- */
+    section{ padding: 5.5rem 0; }
+    .section-title{
+      font-weight:700;
+      letter-spacing:-.01em;
+      font-size: clamp(1.6rem, 2vw, 2.2rem);
+      margin-bottom: .85rem;
+    }
+    .section-sub{
+      color: rgba(255,255,255,.75);
+      max-width: 75ch;
+      margin: 0;
     }
 
-    footer a:hover {
-      text-decoration: underline;
+    /* ---- CARDS ---- */
+    .panel{
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      box-shadow: var(--shadow);
+    }
+    .panel-light{
+      background: #fff;
+      color: #0b0b0c;
+      border: 1px solid rgba(0,0,0,.08);
+      border-radius: 1.25rem;
+      box-shadow: 0 30px 70px rgba(0,0,0,.25);
+    }
+    .card-soft{
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      height: 100%;
+      transition: transform .18s ease, border-color .18s ease;
+    }
+    .card-soft:hover{
+      transform: translateY(-4px);
+      border-color: rgba(255,255,255,.22);
+    }
+    .card-soft .icon{
+      width: 46px; height: 46px;
+      border-radius: 14px;
+      display:grid;
+      place-items:center;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.10);
+      margin-bottom: .9rem;
+      font-size: 1.1rem;
+    }
+
+    /* ---- SERVICES STRIP ---- */
+    .img-tile{
+      border-radius: 1.25rem;
+      overflow:hidden;
+      border: 1px solid rgba(0,0,0,.08);
+      box-shadow: 0 20px 50px rgba(0,0,0,.22);
+    }
+    .img-tile img{ width: 100%; height: 100%; object-fit: cover; display:block; }
+    .img-tile.tall{ aspect-ratio: 4/5; }
+    .img-tile.wide{ aspect-ratio: 16/10; }
+
+    /* ---- ABOUT ---- */
+    .about{
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.82) 0%, rgba(0,0,0,.55) 45%, rgba(0,0,0,.92) 100%),
+        url('images/download (3).jpeg') center/cover no-repeat;
+    }
+    .about .quote{
+      font-style: italic;
+      color: rgba(20,20,20,.92);
+      line-height: 1.65;
+    }
+
+    /* ---- CONTACT ---- */
+    .form-control, .form-select{
+      border-radius: .9rem;
+      padding: .85rem 1rem;
+    }
+    .form-control:focus, .form-select:focus{
+      box-shadow: 0 0 0 .2rem rgba(0,0,0,.08);
+      border-color: rgba(0,0,0,.35);
+    }
+
+    /* ---- FOOTER ---- */
+    footer{
+      border-top: 1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.55);
+    }
+    footer a{ color: rgba(255,255,255,.75); text-decoration:none; }
+    footer a:hover{ color:#fff; text-decoration:underline; }
+    .tiny{ color: rgba(255,255,255,.55); font-size: .9rem; }
+
+    /* ---- SMALL SCREENS ---- */
+    @media (max-width: 576px){
+      .hero .hero-inner{ padding-bottom: 3.3rem; }
+      section{ padding: 4.25rem 0; }
     }
   </style>
 </head>
+
 <body>
 
-<nav class="navbar navbar-expand-lg fixed-top">
+<!-- NAV -->
+<nav id="topNav" class="navbar navbar-expand-lg fixed-top nav-glass">
   <div class="container">
-    <a class="navbar-brand text-white" href="Homepage.html">
-      <img src="ChatGPT Image May 27, 2025, 11_58_41 AM.png" alt="L&F Logo" height="50" width="120">
+    <a class="navbar-brand d-flex align-items-center gap-2 text-white text-decoration-none" href="Homepage.html" aria-label="L&F Consultants Home">
+      <img src="images/ChatGPT Image May 27, 2025, 11_58_41 AM.png" alt="L&F Logo" height="42" width="110">
     </a>
-    <div class="collapse navbar-collapse justify-content-end">
-      <ul class="navbar-nav">
-        <li class="nav-item"><a class="nav-link" href="Homepage.html">HOME</a></li>
-        <li class="nav-item"><a class="nav-link" href="projects.html">PROJECTS</a></li>
-        <li class="nav-item"><a class="nav-link" href="certificates.html">CERTIFICATES</a></li>
-        <li class="nav-item"><a class="nav-link" href="aboutus.html">ABOUT US</a></li>
-        <li class="nav-item"><a class="nav-link" href="contact.html">CONTACT US</a></li>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+      <ul class="navbar-nav align-items-lg-center">
+        <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+        <li class="nav-item"><a class="nav-link" href="projects1.html">Projects</a></li>
+        <li class="nav-item"><a class="nav-link" href="certificates.html">Certificates</a></li>
+        <li class="nav-item"><a class="nav-link" href="aboutus.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+          <a class="btn btn-ghost w-100 w-lg-auto" href="projects1.html">
+            View Portfolio <i class="bi bi-arrow-right ms-1"></i>
+          </a>
+        </li>
       </ul>
     </div>
   </div>
 </nav>
 
-<div class="bg-image">
-  <div class="overlay-text">
-    L&F Consultant Ltd. — A multidisciplinary team of architects and engineers delivering high-quality, efficient, and reliable solutions that turn client visions into built reality.
-  </div>
-</div>
-
-
-<section style="background-color: #000; padding: 100px 0; height:100vh">
-  <div class="container bg-white p-4 p-md-5" style="max-width: 1000px;">
-    <div class="row g-4 align-items-center">
-      
-
-      <div class="col-12 col-sm-6 col-md-4">
-        <img src="Kigali - Rwanda.jpeg" class="img-fluid  shadow-sm w-100" alt="Image 1">
-      </div>
-      <div class="col-12 col-sm-6 col-md-4">
-        <img src="Kigali - Gasabo.jpeg" class="img-fluid  shadow-sm w-100" alt="Image 2">
-      </div>
-
-
-      <div class="col-12 col-md-4">
-        <h4 class="mb-3 text-black">OUR SERVICES</h4>
-        <p class="text-black "style="font-size: 0.95rem;">
-          We offer a full spectrum of design and construction services — from architectural and interior design to project management, engineering, and construction supervision. Our team specializes in feasibility studies, master planning, 3D modeling, costing, and sustainable site development to ensure every project is well-designed, efficiently built, and perfectly executed.
+<!-- HERO -->
+<header id="home" class="hero">
+  <div class="container hero-inner">
+    <div class="row">
+      <div class="col-lg-9">
+        <div class="eyebrow">Integrated thinking • Inspired design</div>
+        <h1>L&F Consultants Ltd.<br class="d-none d-md-block"></h1>
+        <p>
+          A multidisciplinary team of architects and engineers delivering high-quality, efficient, and reliable solutions
+          that turn client visions into built reality.
         </p>
-        <p class="text-black"><strong>Explore projects that bring our expertise to life.</strong></p>
-        <a class="btn btn-outline-dark mt-2" href="projects.html" role="button">
-          VIEW PROJECT →
+
+        <div class="d-flex flex-wrap gap-2">
+          <a class="btn btn-light rounded-pill px-4 py-2" href="projects1.html">
+            Explore Projects <i class="bi bi-arrow-right ms-1"></i>
+          </a>
+          <a class="btn btn-ghost" href="#contact">
+            Start a Conversation <i class="bi bi-chat-dots ms-1"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span> <i class="bi bi-chevron-down"></i>
+  </div>
+</header>
+
+<!-- SERVICES / WHAT WE DO -->
+<section id="services">
+  <div class="container">
+    <div class="row align-items-end g-4 mb-4">
+      <div class="col-lg-7">
+        <h2 class="section-title">Our services</h2>
+        <p class="section-sub">
+          From concept to completion — we design, coordinate and supervise projects with a clear focus on buildability, quality, and value.
+        </p>
+      </div>
+      <div class="col-lg-5 text-lg-end">
+        <a class="btn btn-outline-light rounded-pill px-4 py-2" href="projects1.html">
+          View Project Gallery <i class="bi bi-arrow-right ms-1"></i>
         </a>
       </div>
+    </div>
 
+    <div class="row g-4">
+      <div class="col-12 col-lg-5">
+        <div class="panel-light p-4 p-md-5 h-100">
+          <h3 class="h4 fw-bold mb-3">One-stop consultancy, built around your goals</h3>
+          <p class="mb-4" style="color: rgba(0,0,0,.75);">
+            We offer architectural and interior design, engineering coordination, feasibility studies, master planning,
+            3D modeling, costing, tender support, and construction supervision — with modern tools and strong on-site delivery.
+          </p>
+
+          <div class="row g-3">
+            <div class="col-6">
+              <div class="d-flex gap-2 align-items-start">
+                <i class="bi bi-buildings fs-5"></i>
+                <div>
+                  <div class="fw-semibold">Architecture</div>
+                  <div class="text-muted small">Concept to IFC</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="d-flex gap-2 align-items-start">
+                <i class="bi bi-diagram-3 fs-5"></i>
+                <div>
+                  <div class="fw-semibold">Engineering</div>
+                  <div class="text-muted small">Coordination</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="d-flex gap-2 align-items-start">
+                <i class="bi bi-clipboard-check fs-5"></i>
+                <div>
+                  <div class="fw-semibold">Project Mgmt</div>
+                  <div class="text-muted small">Scope + schedule</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="d-flex gap-2 align-items-start">
+                <i class="bi bi-shield-check fs-5"></i>
+                <div>
+                  <div class="fw-semibold">Supervision</div>
+                  <div class="text-muted small">Quality assurance</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr class="my-4">
+          <div class="d-flex flex-wrap gap-2">
+            <a class="btn btn-dark rounded-pill px-4 py-2" href="projects1.html">View Projects</a>
+            <a class="btn btn-outline-dark rounded-pill px-4 py-2" href="contact.html">Contact</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-7">
+        <div class="row g-4">
+          <div class="col-12 col-md-6">
+            <div class="img-tile tall">
+              <img src="images/30102015-IMG_7985.jpg" alt="Project image 1">
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="img-tile tall">
+              <img src="images/pic2.jpg" alt="Project image 2">
+            </div>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 mt-4">
+      <div class="col-md-4">
+        <div class="card-soft p-4">
+          <div class="icon"><i class="bi bi-lightning-charge"></i></div>
+          <div class="fw-semibold mb-1">Efficient delivery</div>
+          <div class="tiny">Lean processes, realistic timelines, clear coordination.</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card-soft p-4">
+          <div class="icon"><i class="bi bi-award"></i></div>
+          <div class="fw-semibold mb-1">Quality-first</div>
+          <div class="tiny">Strong detail, good documentation, and site follow-through.</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card-soft p-4">
+          <div class="icon"><i class="bi bi-globe2"></i></div>
+          <div class="fw-semibold mb-1">Local + international standards</div>
+          <div class="tiny">Context-aware design aligned with best practice.</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
+<!-- ABOUT -->
+<section id="about" class="about">
+  <div class="container">
+    <div class="row g-4 align-items-end mb-4">
+      <div class="col-lg-7">
+        <h2 class="section-title">About us</h2>
+        <p class="section-sub">
+          We believe in design that performs — for people, for operations, and for long-term asset value.
+        </p>
+      </div>
+      <div class="col-lg-5 text-lg-end">
+        <a class="btn btn-outline-light rounded-pill px-4 py-2" href="aboutus.html">
+          Read More <i class="bi bi-arrow-right ms-1"></i>
+        </a>
+      </div>
+    </div>
 
-<section style="position: relative; background-image: url('download (3).jpeg'); background-size: cover; background-position: center; height: 100vh;">
-  
-  <div style="position: absolute; top: 120px; right: 40px; color: black; font-size: 4rem; font-weight: bold;">
-    ABOUT US
-  </div>  
-
-  <div class="container" style="position: absolute; bottom: 60px; right: 60px; max-width: 1000px; height: 400px; background-color: white; padding: 60px; box-shadow: 0 0 20px rgba(0,0,0,0.1); z-index: 2;">
-    <br>
-    <p class="mb-4 text-black text-center" style="font-style: italic; font-size: 1rem;">
-      “At L&F Consultants, we value quality over size. Our work meets both local and international standards, and our reputation is built on trust, efficiency, and client-first service. With a modern approach, advanced tools, and a skilled team, we offer reliable, one-stop consultancy solutions. We look forward to bringing your vision to life.”
-    </p>
-
-    <p class="fw-bold mb-0 text-center text-black">– Kayitare Florent</p>
-    <p class="text-muted text-center">The Chief Executive Officer</p>
-    
-    <div class="text-center mt-3">
-    <a class="btn btn-outline-dark mt-2 px-4 py-2 text-center" href="aboutus.html" role="button">
-      READ MORE →
-    </a>
+    <div class="row g-4 align-items-stretch">
+      <div class="col-lg-5">
+        <div class="panel p-4 p-md-5 h-100">
+          <div class="eyebrow mb-2">Leadership note</div>
+          <h3 class="h4 fw-bold mb-3">Quality over size. </h3>
+          <p class="mb-0" style="color: rgba(255,255,255,.75); line-height:1.7;">
+            With a modern approach, advanced tools, and a skilled team, we offer reliable, one-stop consultancy solutions.
+            We look forward to bringing your vision to life.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <div class="panel-light p-4 p-md-5 h-100 d-flex flex-column justify-content-between">
+          <p class="quote mb-4 text-center">
+            “At L&F Consultants, we value quality over size. Our work meets both local and international standards,
+            and our reputation is built on trust, efficiency, and client-first service.”
+          </p>
+          <div class="text-center">
+            <div class="fw-bold">– Kayitare Florent</div>
+            <div class="text-muted">Managing Director</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-
-
-
 </section>
 
-
-<section class="bg-black text-white py-5" style="height:100vh">
+<!-- CONTACT -->
+<section id="contact">
   <div class="container">
-
-    <div class="d-flex justify-content-start align-items-end" style="height: 20vh;">
-      <h1 class="display-1 fw-bold opacity-25">CONTACT US</h1>
+    <div class="row align-items-end g-4 mb-4">
+      <div class="col-lg-7">
+        <h2 class="section-title">Contact us</h2>
+        <p class="section-sub">
+          Tell us about your project — we’ll respond with next steps and the right team members.
+        </p>
+      </div>
+      <div class="col-lg-5 text-lg-end">
+        <div class="tiny">KG 176, Remera, Gasabo • +250 788 519 732</div>
+      </div>
     </div>
 
-
-    <div class="row g-5 align-items-start mt-4">
-
-      <div class="col-md-6">
-
-        <form>
-          <div class="mb-3">
-            <input type="text" class="form-control" placeholder="Name" required>
-          </div>
-          <div class="mb-3">
-            <input type="tel" class="form-control" placeholder="Phone Number" required>
-          </div>
-          <div class="mb-3">
-            <input type="email" class="form-control" placeholder="Email" required>
-          </div>
-          <div class="mb-3">
-            <input type="text" class="form-control" placeholder="Interested In">
-          </div>
-          <div class="mb-3">
-            <textarea class="form-control" placeholder="Message" rows="4"></textarea>
-          </div>
-          <button type="submit" class="btn btn-light">SEND EMAIL →</button>
-        </form>
+    <div class="row g-4 align-items-stretch">
+      <div class="col-lg-6">
+        <div class="panel-light p-4 p-md-5 h-100">
+          <form>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <input type="text" class="form-control" id="name" placeholder="Name" required>
+              </div>
+              <div class="col-md-6">
+                <input type="tel" class="form-control" id="phone" placeholder="Phone Number" required>
+              </div>
+              <div class="col-md-6">
+                <input type="email" class="form-control" id="email" placeholder="Email" required>
+              </div>
+              <div class="col-md-6">
+                <input type="text" class="form-control" id="interest" placeholder="Interested In">
+              </div>
+              <div class="col-12">
+                <textarea class="form-control" id="message" placeholder="Message" rows="5"></textarea>
+              </div>
+              <div class="col-12 d-flex flex-wrap gap-2 align-items-center">
+                <button type="submit" class="btn btn-dark rounded-pill px-4 py-2">
+                  Send Email <i class="bi bi-arrow-right ms-1"></i>
+                </button>
+                <span class="text-muted small">Or email: kayitareflorent@gmail.com</span>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
 
-
-      <div class="col-md-6">
-        <img src="download (5).jpeg" class="img-fluid rounded shadow" alt="Contact Image " width="1200" height="1000">
+      <div class="col-lg-6">
+        <div class="panel p-3 h-100">
+          <div class="img-tile wide" style="border:none; box-shadow:none; border-radius:1.1rem;">
+            <img src="images/contactuspic.jpg" alt="Contact image">
+          </div>
+          <div class="p-3 p-md-4">
+            <div class="d-flex flex-wrap gap-3">
+              <a class="btn btn-ghost rounded-pill" href="https://www.linkedin.com/" target="_blank" rel="noopener">
+                <i class="bi bi-linkedin me-1"></i> LinkedIn
+              </a>
+              <a class="btn btn-ghost rounded-pill" href="https://www.facebook.com/" target="_blank" rel="noopener">
+                <i class="bi bi-facebook me-1"></i> Facebook
+              </a>
+              <a class="btn btn-ghost rounded-pill" href="https://www.instagram.com/" target="_blank" rel="noopener">
+                <i class="bi bi-instagram me-1"></i> Instagram
+              </a>
+            </div>
+            <div class="tiny mt-3">Coming soon</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+</section>
 
-<footer class="text-white py-4 mt-5" style="background-color:#333">
+<!-- FOOTER -->
+<footer class="py-5">
   <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="fw-bold mb-2">L&F Consultants Ltd.</div>
+        <div class="tiny">Architecture • Engineering • Project Delivery</div>
+      </div>
 
-    <div class="row">
-      <div class="col-md-4" style=" color: #ccc;text-decoration: none;">
-        <h6>Information</h6>
-        <p ><a style=" color: #ccc;text-decoration: none;" href="#">Home</a><br><a style=" color: #ccc;text-decoration: none;" href="#">Projects</a><br><a style=" color: #ccc;text-decoration: none;" href="#">Certificates</a><br><a style=" color: #ccc;text-decoration: none;" href="aboutus.html">About Us</a><br><a style=" color: #ccc;text-decoration: none;" href="#">Contact Us</a></p>
+      <div class="col-lg-4">
+        <div class="fw-semibold mb-2">Navigation</div>
+        <div class="d-flex flex-column gap-1">
+          <a href="#home">Home</a>
+          <a href="projects1.html">Projects</a>
+          <a href="certificates.html">Certificates</a>
+          <a href="aboutus.html">About Us</a>
+          <a href="contact.html">Contact</a>
+        </div>
       </div>
-      <div class="col-md-4">
-        <h6>Contacts</h6>
-        <p>KG 176, Remera, Gasabo<br>+250 788 519 732<br>kayitareflorent@gmail.com</p>
+
+      <div class="col-lg-4">
+        <div class="fw-semibold mb-2">Contacts</div>
+        <div class="tiny">
+          KG 176, Remera, Gasabo<br>
+          +250 788 519 732<br>
+          kayitareflorent@gmail.com<br>
+          <span class="d-inline-block mt-2">@L_f_architects</span>
+        </div>
       </div>
-      <div class="col-md-4">
-        <h6>Social Media</h6>
-        <p>@L_f_architects<br>Twitter | Facebook | LinkedIn | Pinterest</p>
-      </div>
+    </div>
+
+    <hr class="my-4" style="border-color: rgba(255,255,255,.12);">
+    <div class="tiny d-flex flex-wrap gap-2 justify-content-between">
+      <span>© <span id="year"></span> L&F Consultants Ltd. All rights reserved.</span>
+      <a href="#home">Back to top <i class="bi bi-arrow-up"></i></a>
     </div>
   </div>
 </footer>
 
-</section>
-
-
-
+<!-- Scripts -->
+<script src="https://smtpjs.com/v3/smtp.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // Navbar becomes solid after scrolling (clean "NORR-like" feel)
+  const nav = document.getElementById('topNav');
+  const onScroll = () => {
+    if (window.scrollY > 20) nav.classList.add('nav-solid');
+    else nav.classList.remove('nav-solid');
+  };
+  document.addEventListener('scroll', onScroll, { passive:true });
+  onScroll();
+
+  // Auto year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Close mobile nav after clicking a link
+  const navCollapse = document.getElementById('navbarSupportedContent');
+  navCollapse.querySelectorAll('a.nav-link').forEach(a => {
+    a.addEventListener('click', () => {
+      const bsCollapse = bootstrap.Collapse.getInstance(navCollapse);
+      if (bsCollapse) bsCollapse.hide();
+    });
+  });
+</script>
 </body>
 </html>
